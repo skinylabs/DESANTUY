@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default("user");
+            $table->string('role')->default('user');
+            $table->string('nik')->unique()->nullable();  // NIK untuk masyarakat
+            $table->string('phone')->nullable();  // Nomor telepon
+            $table->text('address')->nullable();  // Alamat
+            $table->boolean('status')->default(true);  // Status aktif/non-aktif
+            $table->string('profile_picture')->nullable();  // Foto profil
             $table->rememberToken();
             $table->timestamps();
         });

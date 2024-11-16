@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('data_desas', function (Blueprint $table) {
             $table->id();
             $table->string("nama_desa");
-            $table->integer("nomer_hp")->unique();
+            $table->string("nomer_hp", 15);
             $table->string("alamat");
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('logo');
             $table->timestamps();
         });

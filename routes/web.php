@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DataDesaController;
+use App\Http\Controllers\Backend\DataPengguna\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Data Desa
     Route::resource('data_desa', DataDesaController::class);
+
+    // Data Pengguna
+    Route::resource('data_user', UserController::class);
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -14,9 +14,9 @@
                     ],
                     [
                         'label' => 'Data Desa',
-                        'route' => 'dashboard',
+                        'route' => 'data_desa.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data-desa*',
+                        'pattern' => 'admin/data_desa*',
                     ],
                 ];
             @endphp
@@ -37,26 +37,20 @@
             @endforeach
 
             <!-- Divider with Text -->
-            <x-ui.sidebar-divider text="Tour Barcode" />
+            <x-ui.sidebar-divider text="Data Pengguna" />
 
             @php
-                $menuItems = [
+                $dataPengguna = [
                     [
-                        'label' => 'Tour',
-                        'route' => 'tour.index',
+                        'label' => 'Data Admin',
+                        'route' => 'data_user.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/tour*',
-                    ],
-                    [
-                        'label' => 'Tata Tertib',
-                        'route' => 'tatatertib.index',
-                        'icon' => 'dashboard',
-                        'pattern' => 'admin/tatatertib*',
+                        'pattern' => 'admin/data_user*',
                     ],
                 ];
             @endphp
 
-            {{-- @foreach ($menuItems as $item)
+            @foreach ($dataPengguna as $item)
                 <li>
                     @php
                         $isActive = request()->is($item['pattern']);
@@ -72,7 +66,7 @@
             @endforeach
 
             <!-- Divider with Text -->
-            <x-ui.sidebar-divider text="Frontend" />
+            {{-- <x-ui.sidebar-divider text="Frontend" />
 
             @php
                 $otherMenuItems = [

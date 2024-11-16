@@ -14,9 +14,15 @@ class DataDesaController extends Controller
      */
     public function index()
     {
-        $dataDesas = DataDesa::all();
-        $isDataDesaExist = DataDesa::count() > 0;
-        return view('pages.backend.data-desa.index', compact('dataDesas', 'isDataDesaExist'));
+        // Mengambil semua data desa
+        $dataDesa = DataDesa::all();
+
+        // Mengecek apakah ada data desa atau tidak
+        $isDataDesaExist = $dataDesa->isNotEmpty();
+
+        // Mengambil nama desa (jika ada)
+        $namaDesa = $isDataDesaExist ? $dataDesa->first()->nama_desa : null;
+        return view('pages.backend.data-desa.index', compact('isDataDesaExist', 'dataDesa', 'namaDesa'));
     }
 
     /**
@@ -35,9 +41,9 @@ class DataDesaController extends Controller
     {
         $request->validate([
             'nama_desa' => 'required|string|max:255',
-            'nomer_hp' => 'required|integer|unique:data_desas',
-            'alamat' => 'required|string',
-            'email' => 'required|email|unique:data_desas',
+            'nomer_hp' => 'required|string|min:10|max:15',
+            'alamat' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'logo' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
@@ -77,9 +83,9 @@ class DataDesaController extends Controller
     {
         $request->validate([
             'nama_desa' => 'required|string|max:255',
-            'nomer_hp' => 'required|integer|unique:data_desas,nomer_hp,' . $dataDesa->id,
-            'alamat' => 'required|string',
-            'email' => 'required|email|unique:data_desas,email,' . $dataDesa->id,
+            'nomer_hp' => 'required|string|min:10|max:15,' . $dataDesa->id,
+            'alamat' => 'required|string|max:255,',
+            'email' => 'required|email|max:255,' . $dataDesa->id,
             'logo' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
