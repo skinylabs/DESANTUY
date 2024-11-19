@@ -16,13 +16,9 @@ class DataDesaController extends Controller
     {
         // Mengambil semua data desa
         $dataDesa = DataDesa::all();
-
         // Mengecek apakah ada data desa atau tidak
         $isDataDesaExist = $dataDesa->isNotEmpty();
-
-        // Mengambil nama desa (jika ada)
-        $namaDesa = $isDataDesaExist ? $dataDesa->first()->nama_desa : null;
-        return view('pages.backend.data-desa.index', compact('isDataDesaExist', 'dataDesa', 'namaDesa'));
+        return view('pages.backend.data-desa.index', compact('isDataDesaExist', 'dataDesa'));
     }
 
     /**

@@ -24,7 +24,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 // Rute untuk halaman utama atau rute lain
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.frontend.homepage');
 });
 
 require __DIR__ . '/auth.php';

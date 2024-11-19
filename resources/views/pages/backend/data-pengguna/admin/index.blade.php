@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-semibold text-slate-800">
-                    Data Masyarakat
+                    Data Admin
                 </h1>
                 <div class="text-sm sm:text-base">
                     <ol class="list-none p-0 inline-flex space-x-2">
@@ -16,7 +16,6 @@
                         </li>
                         <li class="flex items-center">
                             <p class="text-gray-800">Data Pengguna</p>
-                            <p class="ml-2">/</p>
                         </li>
                         <li class="flex items-center">
                             <p class="text-gray-800">Admin</p>

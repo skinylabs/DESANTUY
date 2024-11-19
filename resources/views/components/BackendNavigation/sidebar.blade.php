@@ -28,7 +28,7 @@
                     @endphp
 
                     <a href="{{ route($item['route']) }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group {{ $isActive ? 'bg-blue-500 text-white hover:bg-blue-500' : '' }}">
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-green-100 group {{ $isActive ? 'bg-green-500 text-white hover:bg-green-500' : '' }}">
                         <x-icons.icon type="{{ $item['icon'] }}" fill="{{ $isActive ? '#fff' : '#0f172a' }}" width="20"
                             height="20" />
                         <span class="ms-3">{{ $item['label'] }}</span>
@@ -42,7 +42,13 @@
             @php
                 $dataPengguna = [
                     [
-                        'label' => 'Data Admin',
+                        'label' => 'Admin',
+                        'route' => 'data_user.index',
+                        'icon' => 'dashboard',
+                        'pattern' => 'admin/data_user*',
+                    ],
+                    [
+                        'label' => 'Masyarakat',
                         'route' => 'data_user.index',
                         'icon' => 'dashboard',
                         'pattern' => 'admin/data_user*',
@@ -57,7 +63,7 @@
                     @endphp
 
                     <a href="{{ route($item['route']) }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group {{ $isActive ? 'bg-blue-500 text-white hover:bg-blue-500' : '' }}">
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-green-100 group {{ $isActive ? 'bg-green-500 text-white hover:bg-green-500' : '' }}">
                         <x-icons.icon type="{{ $item['icon'] }}" fill="{{ $isActive ? '#fff' : '#0f172a' }}"
                             width="20" height="20" />
                         <span class="ms-3">{{ $item['label'] }}</span>
@@ -98,7 +104,7 @@
                     @endphp
 
                     <a href="{{ route($item['route']) }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group {{ $isActive ? 'bg-blue-500 text-white hover:bg-blue-500' : '' }}">
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-green-100 group {{ $isActive ? 'bg-green-500 text-white hover:bg-green-500' : '' }}">
                         <x-icons.icon type="{{ $item['icon'] }}" fill="{{ $isActive ? '#fff' : '#0f172a' }}"
                             width="20" height="20" />
                         <span class="ms-3">{{ $item['label'] }}</span>

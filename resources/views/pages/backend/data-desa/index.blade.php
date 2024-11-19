@@ -3,14 +3,14 @@
         <div class="flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-semibold text-slate-800">
-                    {{ $isDataDesaExist ? 'Data Desa ' . $namaDesa : 'Data Desa "tidak ditemukan".' }}
+                    Data Desa {{ config('texts.nama_desa') }}
                 </h1>
                 <div class="text-sm sm:text-base">
                     <ol class="list-none p-0 inline-flex space-x-2">
                         <li class="flex items-center">
                             <a href="/admin/dashboard"
                                 class="text-gray-600 hover:text-blue-500 transition-colors duration-300">
-                                {{ $isDataDesaExist ? 'Desa ' . $namaDesa : 'Desa "tidak ditemukan".' }}
+                                {{ config('texts.nama_desa') }}
                             </a>
                             <p class="ml-2">/</p>
                         </li>
@@ -107,6 +107,8 @@
                             </form>
                         </div>
                     </div>
+                    <!-- Komponen Modal Hapus -->
+                    <x-delete-modal :id="$desa->id" :name="$desa->name" :action="route('data_user.destroy', $desa->id)" />
                 @endforeach
             @else
                 <div class="col-span-full text-center text-gray-600">
@@ -120,7 +122,8 @@
     <div id="imageModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-4 rounded-lg w-96 max-w-screen-lg">
             <div class="flex justify-end">
-                <button onclick="closeImageModal()" class="text-xl font-bold text-gray-700">&times;</button>
+                <button onclick="closeImageModal()"
+                    class="text-4xl font-bold text-gray-700 hover:text-red-500">&times;</button>
             </div>
             <img id="modalImage" src="" alt="Desa Logo" class="w-full h-auto rounded-md" />
         </div>
