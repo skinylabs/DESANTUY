@@ -53,7 +53,7 @@ class DataDesaController extends Controller
             'logo' => $logoPath,
         ]);
 
-        return redirect()->route('data_desa.index')->with('success', 'Data desa berhasil ditambahkan.');
+        return redirect()->route('data-desa.index')->with('success', 'Data desa berhasil ditambahkan.');
     }
 
     /**
@@ -95,7 +95,7 @@ class DataDesaController extends Controller
 
         $dataDesa->update($request->except('logo'));
 
-        return redirect()->route('data_desa.index')->with('success', 'Data desa berhasil diperbarui.');
+        return redirect()->route('data-desa.index')->with('success', 'Data desa berhasil diperbarui.');
     }
 
     /**
@@ -108,6 +108,6 @@ class DataDesaController extends Controller
 
         $dataDesa->delete();
 
-        return redirect()->route('data_desa.index')->with('success', 'Data desa berhasil dihapus.');
+        return redirect()->route('data-desa.index')->with('success', 'Data desa berhasil dihapus.');
     }
 }

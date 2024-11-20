@@ -1,7 +1,7 @@
 <x-backend-layout>
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-semibold text-slate-800 mb-6">Tambah Data Desa</h1>
-        <form action="{{ route('data_desa.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('data-desa.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Nama Desa -->

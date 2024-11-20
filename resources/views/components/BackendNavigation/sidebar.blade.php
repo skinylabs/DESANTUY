@@ -14,9 +14,9 @@
                     ],
                     [
                         'label' => 'Data Desa',
-                        'route' => 'data_desa.index',
+                        'route' => 'data-desa.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data_desa*',
+                        'pattern' => 'admin/data-desa*',
                     ],
                 ];
             @endphp
@@ -43,15 +43,15 @@
                 $dataPengguna = [
                     [
                         'label' => 'Admin',
-                        'route' => 'data_user.index',
+                        'route' => 'data-admin.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data_user*',
+                        'pattern' => 'admin/data-admin*',
                     ],
                     [
                         'label' => 'Masyarakat',
-                        'route' => 'data_user.index',
+                        'route' => 'data-user.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data_user*',
+                        'pattern' => 'admin/data-user*',
                     ],
                 ];
             @endphp

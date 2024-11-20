@@ -1,6 +1,6 @@
 <x-backend-layout>
-    <div class="container">
-        <div class="flex justify-between items-center">
+    <div class="container mx-auto p-6">
+        <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-3xl font-semibold text-slate-800">
                     Data Admin
@@ -16,6 +16,7 @@
                         </li>
                         <li class="flex items-center">
                             <p class="text-gray-800">Data Pengguna</p>
+                            <p class="ml-2">/</p>
                         </li>
                         <li class="flex items-center">
                             <p class="text-gray-800">Admin</p>
@@ -24,55 +25,61 @@
                 </div>
             </div>
             <div>
-                <a href="{{ route('data_user.create') }}" class="addButton">Tambah Data </a>
+                <a href="{{ route('data-admin.create') }}"
+                    class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition">Tambah Data</a>
             </div>
         </div>
 
-        <!-- Tabel untuk Masyarakat -->
-        @if (isset($users) && $users->isNotEmpty())
-            <table class="min-w-full table-auto">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-2 text-left">Nama</th>
-                        <th class="px-4 py-2 text-left">Email</th>
-                        <th class="px-4 py-2 text-left">Role</th>
-                        <th class="px-4 py-2 text-left">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $u)
+        <!-- Kolom Pencarian -->
+        <div class="mb-4">
+            <input type="text" id="search" class="px-4 py-2 border border-gray-300 rounded-md w-full sm:w-1/3"
+                placeholder="Cari berdasarkan nama atau email..." onkeyup="searchData()">
+        </div>
+
+        <!-- Tabel untuk Admin -->
+        @if (isset($admins) && $admins->isNotEmpty())
+            <div class="overflow-x-auto">
+                <table id="adminTable"
+                    class="min-w-full table-auto bg-white border border-gray-200 rounded-md shadow-md">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <td class="px-4 py-2">{{ $u->name }}</td>
-                            <td class="px-4 py-2">{{ $u->email }}</td>
-                            <td class="px-4 py-2">{{ $u->role }}</td>
-                            <td class="px-4 py-2 flex space-x-2">
-                                <!-- Tombol Edit -->
-                                <a href="{{ route('data_user.edit', $u->id) }}"
-                                    class="text-blue-500 hover:text-blue-700">
-                                    Edit
-                                </a>
-
-                                <!-- Tombol Hapus -->
-                                <button class="text-red-500 hover:text-red-700"
-                                    onclick="openDeleteModal({{ $u->id }})">
-                                    Hapus
-                                </button>
-                            </td>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Nama</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Email</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Role</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Aksi</th>
                         </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($admins as $a)
+                            <tr class="admin-row hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $a->name }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ $a->email }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ $a->role }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-500 flex space-x-4">
+                                    <!-- Tombol Edit -->
+                                    <a href="{{ route('data-admin.edit', $a->id) }}"
+                                        class="text-blue-500 hover:text-blue-700">Edit</a>
 
-                        <!-- Komponen Modal Hapus -->
-                        <x-delete-modal :id="$u->id" :name="$u->name" :action="route('data_user.destroy', $u->id)" />
-                    @endforeach
-                </tbody>
-            </table>
+                                    <!-- Tombol Hapus -->
+                                    <button class="text-red-500 hover:text-red-700"
+                                        onclick="openDeleteModal({{ $a->id }})">Hapus</button>
+                                </td>
+                            </tr>
+
+                            <!-- Komponen Modal Hapus -->
+                            <x-delete-modal :id="$a->id" :name="$a->name" :action="route('data-admin.destroy', $a->id)" />
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         @else
-            <p class="text-gray-600">Tidak ada data masyarakat.</p>
+            <p class="text-gray-600">Tidak ada data admin.</p>
         @endif
     </div>
 
     <!-- Modal untuk konfirmasi hapus -->
     <div id="deleteModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-4 rounded-lg w-96">
+        <div class="bg-white p-6 rounded-lg w-96 shadow-lg">
             <div class="text-lg mb-4">
                 <strong>Apakah Anda yakin ingin menghapus data ini?</strong>
             </div>
@@ -97,12 +104,32 @@
     <!-- Script untuk membuka dan menutup modal -->
     <script>
         function openDeleteModal(id) {
-            document.getElementById('deleteModal-' + id).classList.remove('hidden');
+            document.getElementById('deleteModal').classList.remove('hidden');
+            document.getElementById('deleteForm').action = '/data-admin/' + id;
         }
 
         // Fungsi untuk menutup modal konfirmasi hapus
-        function closeDeleteModal(id) {
-            document.getElementById('deleteModal-' + id).classList.add('hidden');
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        // Fungsi untuk pencarian real-time (berdasarkan nama atau email)
+        function searchData() {
+            let input = document.getElementById('search');
+            let filter = input.value.toLowerCase();
+            let rows = document.querySelectorAll('.admin-row');
+
+            rows.forEach(function(row) {
+                let name = row.cells[0].textContent.toLowerCase();
+                let email = row.cells[1].textContent.toLowerCase();
+
+                // Jika nama atau email berisi karakter pencarian, tampilkan baris
+                if (name.includes(filter) || email.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         }
     </script>
 </x-backend-layout>

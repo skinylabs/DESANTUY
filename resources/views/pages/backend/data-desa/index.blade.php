@@ -27,7 +27,7 @@
                         Tambah Data
                     </button>
                 @else
-                    <a href="{{ route('data_desa.create') }}" class="addButton">
+                    <a href="{{ route('data-desa.create') }}" class="addButton">
                         Tambah Data
                     </a>
                 @endif
@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="mt-3 flex space-x-2">
-                                <a href="{{ route('data_desa.edit', $desa->id) }}"
+                                <a href="{{ route('data-desa.edit', $desa->id) }}"
                                     class="px-4 py-2 bg-yellow-500 text-white rounded-md text-sm hover:bg-yellow-600 transition">
                                     Edit
                                 </a>
@@ -89,7 +89,7 @@
                             <div class="text-lg mb-4">
                                 <strong>Apakah Anda yakin ingin menghapus desa {{ $desa->nama_desa }}?</strong>
                             </div>
-                            <form action="{{ route('data_desa.destroy', $desa->id) }}" method="POST"
+                            <form action="{{ route('data-desa.destroy', $desa->id) }}" method="POST"
                                 id="deleteForm-{{ $desa->id }}">
                                 @csrf
                                 @method('DELETE')
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <!-- Komponen Modal Hapus -->
-                    <x-delete-modal :id="$desa->id" :name="$desa->name" :action="route('data_user.destroy', $desa->id)" />
+                    <x-delete-modal :id="$desa->id" :name="$desa->name" :action="route('data-desa.destroy', $desa->id)" />
                 @endforeach
             @else
                 <div class="col-span-full text-center text-gray-600">

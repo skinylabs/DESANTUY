@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-3xl font-semibold text-slate-800">
-                    Data Masyarakat
+                    Data Dusun
                 </h1>
                 <div class="text-sm sm:text-base">
                     <ol class="list-none p-0 inline-flex space-x-2">
@@ -15,69 +15,62 @@
                             <p class="ml-2">/</p>
                         </li>
                         <li class="flex items-center">
-                            <p class="text-gray-800">Data Pengguna</p>
+                            <p class="text-gray-800">Data Penduduk</p>
                             <p class="ml-2">/</p>
                         </li>
                         <li class="flex items-center">
-                            <p class="text-gray-800">Masyarakat</p>
+                            <p class="text-gray-800">Dusun</p>
                         </li>
                     </ol>
                 </div>
             </div>
             <div>
-                <a href="{{ route('data-admin.create') }}"
+                <a href="{{ route('dusun.create') }}"
                     class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition">Tambah Data</a>
             </div>
         </div>
 
-        <!-- Kolom Pencarian (Kiri) -->
+        <!-- Kolom Pencarian -->
         <div class="mb-4">
             <input type="text" id="search" class="px-4 py-2 border border-gray-300 rounded-md w-full sm:w-1/3"
                 placeholder="Cari berdasarkan nama atau email..." onkeyup="searchData()">
         </div>
 
-        <!-- Tabel untuk Masyarakat -->
-        @if (isset($users) && $users->isNotEmpty())
+        <!-- Tabel untuk Admin -->
+        @if (isset($dusuns) && $dusuns->isNotEmpty())
             <div class="overflow-x-auto">
-                <table id="userTable"
+                <table id="rtTable"
                     class="min-w-full table-auto bg-white border border-gray-200 rounded-md shadow-md">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Nama</th>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Email</th>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Role</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Nama Dusun</th>
                             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Aksi</th>
+
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($users as $u)
-                            <tr class="user-row hover:bg-gray-50">
-                                <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $u->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ $u->email }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ $u->role }}</td>
+                        @foreach ($dusuns as $ds)
+                            <tr class="rt-row hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $ds->nama_dusun }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500 flex space-x-4">
                                     <!-- Tombol Edit -->
-                                    <a href="{{ route('data-user.edit', $u->id) }}"
-                                        class="text-blue-500 hover:text-blue-700">
-                                        Edit
-                                    </a>
+                                    <a href="{{ route('data-admin.edit', $ds->id) }}"
+                                        class="text-blue-500 hover:text-blue-700">Edit</a>
 
                                     <!-- Tombol Hapus -->
                                     <button class="text-red-500 hover:text-red-700"
-                                        onclick="openDeleteModal({{ $u->id }})">
-                                        Hapus
-                                    </button>
+                                        onclick="openDeleteModal({{ $ds->id }})">Hapus</button>
                                 </td>
                             </tr>
 
                             <!-- Komponen Modal Hapus -->
-                            <x-delete-modal :id="$u->id" :name="$u->name" :action="route('data-user.destroy', $u->id)" />
+                            <x-delete-modal :id="$ds->id" :name="$ds->name" :action="route('dusun.destroy', $ds->id)" />
                         @endforeach
                     </tbody>
                 </table>
             </div>
         @else
-            <p class="text-gray-600">Tidak ada data masyarakat.</p>
+            <p class="text-gray-600">Tidak ada data admin.</p>
         @endif
     </div>
 
@@ -109,7 +102,7 @@
     <script>
         function openDeleteModal(id) {
             document.getElementById('deleteModal').classList.remove('hidden');
-            document.getElementById('deleteForm').action = '/data-user/' + id;
+            document.getElementById('deleteForm').action = '/admin/data-penduduk/dusun/' + id;
         }
 
         // Fungsi untuk menutup modal konfirmasi hapus
@@ -121,14 +114,13 @@
         function searchData() {
             let input = document.getElementById('search');
             let filter = input.value.toLowerCase();
-            let rows = document.querySelectorAll('.user-row');
+            let rows = document.querySelectorAll('.rt-row');
 
             rows.forEach(function(row) {
-                let name = row.cells[0]?.textContent.toLowerCase();
-                let email = row.cells[1]?.textContent.toLowerCase();
+                let nama_dusun = row.cells[0].textContent.toLowerCase();
 
                 // Jika nama atau email berisi karakter pencarian, tampilkan baris
-                if (name && email && (name.includes(filter) || email.includes(filter))) {
+                if (name.includes(filter)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';

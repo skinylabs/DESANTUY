@@ -1,7 +1,7 @@
 <x-backend-layout>
     <div class="">
         <h1 class="text-3xl font-semibold text-slate-800 mb-6">Edit Data Desa</h1>
-        <form action="{{ route('data_desa.update', $dataDesa->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('data-desa.update', $dataDesa->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
