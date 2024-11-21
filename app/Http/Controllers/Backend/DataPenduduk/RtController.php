@@ -16,7 +16,8 @@ class RtController extends Controller
     public function index()
     {
         $rts = Rt::all();
-        return view('pages.backend.data-penduduk.rt.index', compact('rts'));
+        $rws = Rw::all();
+        return view('pages.backend.data-penduduk.rt.index', compact('rts', 'rws'));
     }
 
     /**
@@ -25,7 +26,7 @@ class RtController extends Controller
     public function create()
     {
         $dusuns = Dusun::all();
-        $rws = Rw::all();
+        $rws = Rw::with('dusun')->get();
         return view('pages.backend.data-penduduk.rt.partials.create', compact('dusuns', 'rws'));
     }
 
@@ -36,10 +37,15 @@ class RtController extends Controller
     {
         $request->validate([
             'nomer_rt' => 'required|unique:rt,nomer_rt',
+            'rw_id' => 'required|exists:rw,id', // Validasi rw_id harus valid
         ]);
 
-        Rt::create($request->all());
-        return redirect()->route('rt.index')->with('success', 'RT created successfully');
+        Rt::create([
+            'nomer_rt' => $request->nomer_rt,
+            'rw_id' => $request->rw_id,
+        ]);
+
+        return redirect()->route('rt.index')->with('success', 'RT berhasil ditambahkan');
     }
 
     /**

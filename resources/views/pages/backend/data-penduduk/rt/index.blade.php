@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div class="container mx-auto p-6">
         <div class="flex justify-between items-center mb-6">
             <div>
@@ -33,7 +33,7 @@
         <!-- Kolom Pencarian -->
         <div class="mb-4">
             <input type="text" id="search" class="px-4 py-2 border border-gray-300 rounded-md w-full sm:w-1/3"
-                placeholder="Cari berdasarkan nama atau email..." onkeyup="searchData()">
+                placeholder="Cari berdasarkan RT atau RW..." onkeyup="searchData()">
         </div>
 
         <!-- Tabel untuk Admin -->
@@ -43,18 +43,18 @@
                     class="min-w-full table-auto bg-white border border-gray-200 rounded-md shadow-md">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Nama</th>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Email</th>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Role</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">RT</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">RW</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Dusun</th>
                             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($rts as $rt)
                             <tr class="rt-row hover:bg-gray-50">
-                                <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $rt->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ $rt->email }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ $rt->role }}</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-800">{{ $rt->nomer_rt }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ $rt->rw->nomer_rw }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ $rt->rw->dusun->nama_dusun }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500 flex space-x-4">
                                     <!-- Tombol Edit -->
                                     <a href="{{ route('data-admin.edit', $rt->id) }}"
@@ -73,7 +73,7 @@
                 </table>
             </div>
         @else
-            <p class="text-gray-600">Tidak ada data admin.</p>
+            <p class="text-gray-600">Tidak ada data RT.</p>
         @endif
     </div>
 
@@ -105,7 +105,7 @@
     <script>
         function openDeleteModal(id) {
             document.getElementById('deleteModal').classList.remove('hidden');
-            document.getElementById('deleteForm').action = '/dusun/' + id;
+            document.getElementById('deleteForm').action = '/admin/data-penduduk/rt/' + id;
         }
 
         // Fungsi untuk menutup modal konfirmasi hapus
@@ -113,18 +113,18 @@
             document.getElementById('deleteModal').classList.add('hidden');
         }
 
-        // Fungsi untuk pencarian real-time (berdasarkan nama atau email)
+        // Fungsi untuk pencarian real-time (berdasarkan RT atau RW)
         function searchData() {
             let input = document.getElementById('search');
             let filter = input.value.toLowerCase();
             let rows = document.querySelectorAll('.rt-row');
 
             rows.forEach(function(row) {
-                let name = row.cells[0].textContent.toLowerCase();
-                let email = row.cells[1].textContent.toLowerCase();
+                let rt = row.cells[0].textContent.toLowerCase();
+                let rw = row.cells[1].textContent.toLowerCase();
 
-                // Jika nama atau email berisi karakter pencarian, tampilkan baris
-                if (name.includes(filter) || email.includes(filter)) {
+                // Jika RT atau RW berisi karakter pencarian, tampilkan baris
+                if (rt.includes(filter) || rw.includes(filter)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -132,4 +132,4 @@
             });
         }
     </script>
-</x-backend-layout>
+</x-admin-backend-layout>

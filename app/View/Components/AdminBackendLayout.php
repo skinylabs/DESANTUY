@@ -5,13 +5,13 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class BackendLayout extends Component
+class AdminBackendLayout extends Component
 {
     /**
      * Get the view / contents that represents the component.
      */
     public function render(): View
     {
-        return view('layouts.backend');
+        return view('layouts.admin-backend');
     }
 }

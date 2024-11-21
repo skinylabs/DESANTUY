@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div>
         <h1 class="text-3xl font-semibold mb-6">Edit Data Pengguna</h1>
         <form action="{{ route('data_user.update', $data_user->id) }}" method="POST" enctype="multipart/form-data">
@@ -61,4 +61,4 @@
             </button>
         </form>
     </div>
-</x-backend-layout>
+</x-admin-backend-layout>

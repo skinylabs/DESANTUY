@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\DataPenduduk;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataPenduduk\Dusun;
 use App\Models\DataPenduduk\Rw;
 use Illuminate\Http\Request;
 
@@ -22,16 +23,18 @@ class RwController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data-penduduk.rw.partials.create');
+        $dusuns = Dusun::all();
+        return view('pages.backend.data-penduduk.rw.partials.create', compact('dusuns'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage. 
      */
     public function store(Request $request)
     {
         $request->validate([
             'nomer_rw' => 'required|unique:rw,nomer_rw',
+            'dusun_id' => 'required|exists:dusun,id',
         ]);
 
         Rw::create($request->all());

@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div class="container mx-auto p-6">
         <div class="flex justify-between items-center mb-6">
             <div>
@@ -128,4 +128,4 @@
             });
         }
     </script>
-</x-backend-layout>
+</x-admin-backend-layout>

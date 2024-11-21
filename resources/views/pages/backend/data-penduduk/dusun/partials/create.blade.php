@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-semibold text-slate-800 mb-6">Create Dusun</h1>
         <form action="{{ route('dusun.store') }}" method="POST">
@@ -21,4 +21,4 @@
             </button>
         </form>
     </div>
-</x-backend-layout>
+</x-admin-backend-layout>

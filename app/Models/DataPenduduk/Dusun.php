@@ -17,7 +17,7 @@ class Dusun extends Model
     ];
 
     // Relasi: Dusun memiliki banyak RT
-    public function rts()
+    public function rt()
     {
         return $this->hasMany(Rt::class);
     }
@@ -25,6 +25,6 @@ class Dusun extends Model
     // Relasi: Dusun milik satu RW
     public function rw()
     {
-        return $this->belongsTo(Rw::class);
+        return $this->hasMany(Rw::class);
     }
 }

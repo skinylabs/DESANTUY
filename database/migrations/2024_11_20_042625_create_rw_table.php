@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rw', function (Blueprint $table) {
             $table->id(); // ID RW
-            $table->foreignId('rt_id')->constrained('dusun')->onDelete('cascade'); // Relasi ke RT
+            $table->foreignId('dusun_id')->constrained('dusun')->onDelete('cascade');
             $table->string('nomer_rw'); // Nomor RW
             $table->timestamps();
         });

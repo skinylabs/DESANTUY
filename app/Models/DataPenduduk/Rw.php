@@ -13,16 +13,16 @@ class Rw extends Model
 
     protected $fillable = [
         'nomer_rw',
+        'dusun_id',
     ];
 
     // Relasi: RW memiliki banyak Dusun
-    public function dusuns()
+    public function dusun()
     {
-        return $this->hasMany(Dusun::class);
+        return $this->belongsTo(Dusun::class);
     }
 
-    // Relasi: RW memiliki banyak RT
-    public function rts()
+    public function rt()
     {
         return $this->hasMany(Rt::class);
     }

@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-semibold text-slate-800 mb-6">Register Pengguna</h1>
         <form action="{{ route('data-admin.store') }}" method="POST" enctype="multipart/form-data">
@@ -98,4 +98,4 @@
             </button>
         </form>
     </div>
-</x-backend-layout>
+</x-admin-backend-layout>

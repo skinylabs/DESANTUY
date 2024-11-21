@@ -17,8 +17,8 @@
 </head>
 
 <body class="font-sans antialiased">
-    <x-BackendNavigation.navbar />
-    <x-BackendNavigation.sidebar />
+    <x-BackendNavigation.Admin.navbar />
+    <x-BackendNavigation.Admin.sidebar />
 
     <div class="p-4 sm:ml-64">
         <div class="p-4 rounded-lg dark:border-gray-700 mt-14">

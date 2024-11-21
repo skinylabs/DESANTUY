@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div class="container">
         <div class="flex justify-between items-center">
             <div>
@@ -152,4 +152,4 @@
             document.getElementById('deleteModal-' + id).classList.add('hidden');
         }
     </script>
-</x-backend-layout>
+</x-admin-backend-layout>

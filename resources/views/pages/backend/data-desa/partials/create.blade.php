@@ -1,4 +1,4 @@
-<x-backend-layout>
+<x-admin-backend-layout>
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-semibold text-slate-800 mb-6">Tambah Data Desa</h1>
         <form action="{{ route('data-desa.store') }}" method="POST" enctype="multipart/form-data">
@@ -63,4 +63,4 @@
                 class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300">Simpan</button>
         </form>
     </div>
-</x-backend-layout>
+</x-admin-backend-layout>
