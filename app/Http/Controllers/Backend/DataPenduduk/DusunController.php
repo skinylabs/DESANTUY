@@ -34,8 +34,18 @@ class DusunController extends Controller
             'nama_dusun' => 'required|unique:dusun,nama_dusun',
         ]);
 
-        Dusun::create($request->all());
-        return redirect()->route('dusun.index')->with('success', 'Dusun created successfully');
+        try {
+            Dusun::create($request->all());
+            // Flash message success
+            session()?->flash('message', 'Dusun berhasil dibuat.');
+            session()?->flash('type', 'success'); // Menentukan tipe 'success'
+        } catch (\Exception $e) {
+            // Flash message error
+            session()?->flash('message', 'Gagal membuat dusun: ' . $e->getMessage());
+            session()?->flash('type', 'error'); // Menentukan tipe 'error'
+        }
+
+        return redirect()->route('dusun.index');
     }
 
     /**

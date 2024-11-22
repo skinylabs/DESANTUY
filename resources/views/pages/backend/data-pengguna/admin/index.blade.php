@@ -1,5 +1,6 @@
 <x-admin-backend-layout>
     <div class="container mx-auto p-6">
+
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-3xl font-semibold text-slate-800">

@@ -28,7 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Menyimpan flash message ke session
+        session()?->flash('message', 'Login berhasil, hai ' . Auth::user()->name . '!');
+        session()?->flash('type', 'success'); // Menambahkan tipe pesan
+
+        return redirect()->route('dashboard');
     }
 
     /**
