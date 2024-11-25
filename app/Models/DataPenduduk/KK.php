@@ -2,6 +2,7 @@
 
 namespace App\Models\DataPenduduk;
 
+use App\Models\DataGeografis\Rw;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,28 +13,21 @@ class Kk extends Model
     protected $table = 'kk';
 
     protected $fillable = [
-        'rw_id',             // ID RW
-        'nomer_kk',          // Nomor KK
-        'kepala_keluarga',   // Nama kepala keluarga
-        'alamat',            // Alamat keluarga
-        'jumlah_anggota_keluarga',  // Jumlah anggota keluarga
+        'nomer_kk',
+        'nik',
+        'nama',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'golongan_darah',
+        'agama',
+        'status_perkawinan',
+        'status_hubungan_keluarga',
     ];
 
-    // Relasi: KK memiliki banyak KTP (anggota keluarga)
+    // Relasi: KK memiliki banyak KTP
     public function ktps()
     {
-        return $this->hasMany(Ktp::class);
-    }
-
-    // Relasi: KK memiliki banyak anggota keluarga
-    public function kkMembers()
-    {
-        return $this->hasMany(KkMember::class);
-    }
-
-    // Relasi: KK milik satu RW
-    public function rw()
-    {
-        return $this->belongsTo(Rw::class);
+        return $this->hasMany(Ktp::class); // Relasi One-to-Many
     }
 }

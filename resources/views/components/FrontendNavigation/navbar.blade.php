@@ -48,10 +48,45 @@
                 </li>
             </ul>
         </div>
-        <div class="flex gap-2">
-            <a href="/login" class="bg-green-500 text-white p-2 rounded-lg">Masuk</a>
-            <a href="/login" class="bg-green-500 text-white p-2 rounded-lg">Daftar</a>
+        <div class="relative">
+            @if (auth()->check())
+                <!-- Jika pengguna sudah login -->
+                <button id="user-dropdown-btn" class="flex items-center gap-2 bg-gray-100 p-2 rounded-lg">
+                    <!-- Foto profil -->
+                    <img src="{{ auth()->user()->profile_photo_url ?? asset('images/default-profile.png') }}"
+                        alt="Profile" class="w-8 h-8 rounded-full object-cover">
+                    <!-- Nama pengguna -->
+                    <span class="text-slate-800 font-medium">{{ auth()->user()->name }}</span>
+                    <!-- Ikon panah -->
+                    <svg id="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <ul id="user-dropdown-menu"
+                    class="absolute right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-50 w-48">
+                    <li>
+                        <a href="{{ route('dashboard') }}"
+                            class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Dashboard</a>
+                    </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            @else
+                <!-- Jika pengguna belum login -->
+                <a href="{{ route('login') }}" class="bg-green-500 text-white p-2 rounded-lg">Masuk</a>
+                <a href="{{ route('register') }}" class="bg-green-500 text-white p-2 rounded-lg">Daftar</a>
+            @endif
         </div>
+
+
         <ion-icon id="menu-icon" onclick="onToggleMenu(this)" name="menu"
             class="text-3xl cursor-pointer md:hidden"></ion-icon>
     </nav>
@@ -61,6 +96,7 @@
 <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
 
 <script>
+    // Menu Navigasi (awal)
     const navLinks = document.querySelector('.nav-links');
     const overlay = document.getElementById('overlay');
     const header = document.getElementById('header');
@@ -138,7 +174,35 @@
             }
         }
     });
+
+    // Dropdown untuk Foto Profil dan Logout
+    const userDropdownBtn = document.getElementById('user-dropdown-btn');
+    const userDropdownMenu = document.getElementById('user-dropdown-menu');
+    const userDropdownArrow = document.getElementById('dropdown-arrow');
+
+    if (userDropdownBtn) {
+        userDropdownBtn.addEventListener('click', () => {
+            userDropdownMenu.classList.toggle('hidden');
+            userDropdownArrow.classList.toggle('rotate-180');
+        });
+    }
+
+    // Menutup dropdown jika klik di luar area
+    window.addEventListener('click', (event) => {
+        if (
+            userDropdownMenu &&
+            userDropdownBtn &&
+            !userDropdownBtn.contains(event.target) &&
+            !userDropdownMenu.contains(event.target)
+        ) {
+            userDropdownMenu.classList.add('hidden');
+            if (userDropdownArrow) {
+                userDropdownArrow.classList.remove('rotate-180');
+            }
+        }
+    });
 </script>
+
 
 
 

@@ -80,19 +80,19 @@
                         'label' => 'Data Dusun',
                         'route' => 'dusun.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data-penduduk/dusun*',
+                        'pattern' => 'admin/data-geografis/dusun*',
                     ],
                     [
                         'label' => 'Data RW',
                         'route' => 'rw.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data-penduduk/rw*',
+                        'pattern' => 'admin/data-geografis/rw*',
                     ],
                     [
                         'label' => 'Data RT',
                         'route' => 'rt.index',
                         'icon' => 'dashboard',
-                        'pattern' => 'admin/data-penduduk/rt*',
+                        'pattern' => 'admin/data-geografis/rt*',
                     ],
                 ];
             @endphp

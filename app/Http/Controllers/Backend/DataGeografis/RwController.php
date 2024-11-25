@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Backend\DataPenduduk;
+namespace App\Http\Controllers\Backend\DataGeografis;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataPenduduk\Dusun;
-use App\Models\DataPenduduk\Rw;
+use App\Models\DataGeografis\Dusun;
+use App\Models\DataGeografis\Rw;
 use Illuminate\Http\Request;
 
 class RwController extends Controller
@@ -15,7 +15,7 @@ class RwController extends Controller
     public function index()
     {
         $rws = Rw::all();
-        return view('pages.backend.data-penduduk.rw.index', compact('rws'));
+        return view('pages.backend.data-geografis.rw.index', compact('rws'));
     }
 
     /**
@@ -24,7 +24,7 @@ class RwController extends Controller
     public function create()
     {
         $dusuns = Dusun::all();
-        return view('pages.backend.data-penduduk.rw.partials.create', compact('dusuns'));
+        return view('pages.backend.data-geografis.rw.partials.create', compact('dusuns'));
     }
 
     /**
@@ -46,7 +46,7 @@ class RwController extends Controller
      */
     public function show(Rw $rw)
     {
-        return view('pages.backend.data-penduduk.rw.partials.show', compact('rw'));
+        return view('pages.backend.data-geografis.rw.partials.show', compact('rw'));
     }
 
     /**
@@ -54,7 +54,8 @@ class RwController extends Controller
      */
     public function edit(Rw $rw)
     {
-        return view('pages.backend.data-penduduk.rw.partials.edit', compact('rw'));
+        $dusuns = Dusun::all();
+        return view('pages.backend.data-geografis.rw.partials.edit', compact('rw', 'dusuns'));
     }
 
     /**
@@ -63,6 +64,7 @@ class RwController extends Controller
     public function update(Request $request, Rw $rw)
     {
         $request->validate([
+
             'nomer_rw' => 'required|unique:rw,nomer_rw,' . $rw->id,
         ]);
 

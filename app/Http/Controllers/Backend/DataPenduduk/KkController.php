@@ -13,8 +13,8 @@ class KkController extends Controller
      */
     public function index()
     {
-        $kks = KK::all();
-        return view('pages.backend.data-penduduk.kk.index', compact('kks'));
+        $kks = Kk::all();
+        return view('pages.backend.data-geografis.kk.index', compact('kks'));
     }
 
     /**
@@ -22,7 +22,7 @@ class KkController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data-penduduk.kk.partials.create');
+        return view('pages.backend.data-geografis.kk.partials.create');
     }
 
     /**
@@ -32,13 +32,21 @@ class KkController extends Controller
     {
         $request->validate([
             'nomer_kk' => 'required|unique:kk,nomer_kk',
-            'kepala_keluarga' => 'required',
-            'alamat' => 'required',
-            'jumlah_anggota_keluarga' => 'required|integer',
+            'nik' => 'required',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'golongan_darah' => 'required',
+            'agama' => 'required',
+            'status_perkawinan' => 'required',
+            'status_hubungan_keluarga' => 'required',
         ]);
 
-        Kk::create($request->all());
-        return redirect()->route('kk.index')->with('success', 'Kartu Keluarga created successfully');
+        $kk = new Kk($request->all());
+        $kk->save();
+
+        return redirect()->route('kk.index')->with('success', 'KK berhasil ditambahkan!');
     }
 
     /**
@@ -46,39 +54,50 @@ class KkController extends Controller
      */
     public function show(Kk $kk)
     {
-        return view('pages.backend.data-penduduk.kk.partials.show', compact('kk'));
+        return view('pages.backend.data-geografis.kk.partials.show', compact('kk'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kk $kk)
+    public function edit($id)
     {
-        return view('pages.backend.data-penduduk.kk.partials.edit', compact('kk'));
+        $kk = Kk::findOrFail($id);
+        return view('pages.backend.data-geografis.kk.partials.edit', compact('kk'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kk $kk)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nomer_kk' => 'required|unique:kk,nomer_kk,' . $kk->id,
-            'kepala_keluarga' => 'required',
-            'alamat' => 'required',
-            'jumlah_anggota_keluarga' => 'required|integer',
+            'nomer_kk' => 'required|unique:kk,nomer_kk,' . $id,
+            'nik' => 'required',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'golongan_darah' => 'required',
+            'agama' => 'required',
+            'status_perkawinan' => 'required',
+            'status_hubungan_keluarga' => 'required',
         ]);
 
+        $kk = Kk::findOrFail($id);
         $kk->update($request->all());
-        return redirect()->route('kk.index')->with('success', 'Kartu Keluarga updated successfully');
+
+        return redirect()->route('kk.index')->with('success', 'KK berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kk $kk)
+    public function destroy($id)
     {
+        $kk = Kk::findOrFail($id);
         $kk->delete();
-        return redirect()->route('kk.index')->with('success', 'Kartu Keluarga deleted successfully');
+
+        return redirect()->route('kk.index')->with('success', 'KK berhasil dihapus!');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Backend\DataPenduduk;
+namespace App\Http\Controllers\Backend\DataGeografis;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataPenduduk\Dusun;
-use App\Models\DataPenduduk\Rt;
-use App\Models\DataPenduduk\Rw;
+use App\Models\DataGeografis\Dusun;
+use App\Models\DataGeografis\Rt;
+use App\Models\DataGeografis\Rw;
 use Illuminate\Http\Request;
 
 class RtController extends Controller
@@ -17,7 +17,7 @@ class RtController extends Controller
     {
         $rts = Rt::all();
         $rws = Rw::all();
-        return view('pages.backend.data-penduduk.rt.index', compact('rts', 'rws'));
+        return view('pages.backend.data-geografis.rt.index', compact('rts', 'rws'));
     }
 
     /**
@@ -27,7 +27,7 @@ class RtController extends Controller
     {
         $dusuns = Dusun::all();
         $rws = Rw::with('dusun')->get();
-        return view('pages.backend.data-penduduk.rt.partials.create', compact('dusuns', 'rws'));
+        return view('pages.backend.data-geografis.rt.partials.create', compact('dusuns', 'rws'));
     }
 
     /**
@@ -53,7 +53,7 @@ class RtController extends Controller
      */
     public function show(Rt $rt)
     {
-        return view('pages.backend.data-penduduk.rt.partials.show', compact('rt'));
+        return view('pages.backend.data-geografis.rt.partials.show', compact('rt',));
     }
 
     /**
@@ -61,7 +61,9 @@ class RtController extends Controller
      */
     public function edit(Rt $rt)
     {
-        return view('pages.backend.data-penduduk.rt.partials.edit', compact('rt'));
+
+        $rws = Rw::all();
+        return view('pages.backend.data-geografis.rt.partials.edit', compact('rt', 'rws'));
     }
 
     /**

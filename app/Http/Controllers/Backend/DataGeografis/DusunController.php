@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Backend\DataPenduduk;
+namespace App\Http\Controllers\Backend\DataGeografis;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataPenduduk\Dusun;
+use App\Models\DataGeografis\Dusun;
 use Illuminate\Http\Request;
 
 class DusunController extends Controller
@@ -14,7 +14,7 @@ class DusunController extends Controller
     public function index()
     {
         $dusuns = Dusun::all();
-        return view('pages.backend.data-penduduk.dusun.index', compact('dusuns'));
+        return view('pages.backend.data-geografis.dusun.index', compact('dusuns'));
     }
 
     /**
@@ -22,7 +22,7 @@ class DusunController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data-penduduk.dusun.partials.create');
+        return view('pages.backend.data-geografis.dusun.partials.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class DusunController extends Controller
      */
     public function edit(Dusun $dusun)
     {
-        return view('dusun.edit', compact('dusun'));
+        return view('pages.backend.data-geografis.dusun.partials.edit', compact('dusun'));
     }
 
     /**
@@ -70,7 +70,7 @@ class DusunController extends Controller
     public function update(Request $request, Dusun $dusun)
     {
         $request->validate([
-            'nomer_dusun' => 'required|unique:dusun,nomer_dusun,' . $dusun->id,
+            'nama_dusun' => 'required|unique:dusun,nama_dusun,' . $dusun->id,
         ]);
 
         $dusun->update($request->all());

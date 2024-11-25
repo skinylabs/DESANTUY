@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DataDesaController;
-use App\Http\Controllers\Backend\DataPenduduk\DusunController;
+use App\Http\Controllers\Backend\DataGeografis\DusunController;
 use App\Http\Controllers\Backend\DataPenduduk\KkController;
 use App\Http\Controllers\Backend\DataPenduduk\KkMemberController;
 use App\Http\Controllers\Backend\DataPenduduk\KtpController;
-use App\Http\Controllers\Backend\DataPenduduk\RtController;
-use App\Http\Controllers\Backend\DataPenduduk\RwController;
+use App\Http\Controllers\Backend\DataGeografis\RtController;
+use App\Http\Controllers\Backend\DataGeografis\RwController;
 use App\Http\Controllers\Backend\DataPengguna\AdminController;
 use App\Http\Controllers\Backend\DataPengguna\UserController;
 use App\Http\Controllers\ProfileController;
@@ -26,14 +26,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::resource('data-admin', AdminController::class);
     });
 
-    // Data Penduduk (Prefix datapenduduk/)
-    Route::prefix('data-penduduk')->group(function () {
+    // Data Geografis
+    Route::prefix('data-geografis')->group(function () {
         Route::resource('dusun', DusunController::class);
         Route::resource('rt', RtController::class);
         Route::resource('rw', RwController::class);
+    });
+
+    // Data Penduduk
+    Route::prefix('data-penduduk')->group(function () {
         Route::resource('ktp', KtpController::class);
         Route::resource('kk', KkController::class);
-        Route::resource('kk-members', KkMemberController::class);
     });
 
     // Profile

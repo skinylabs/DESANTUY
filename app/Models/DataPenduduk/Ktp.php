@@ -12,23 +12,23 @@ class Ktp extends Model
     protected $table = 'ktp';
 
     protected $fillable = [
-        'nik',            // Nomor KTP
-        'nama',           // Nama lengkap
-        'jenis_kelamin',  // Jenis kelamin
-        'tanggal_lahir',  // Tanggal lahir
-        'alamat',         // Alamat lengkap
-        'agama',          // Agama
+        'kk_id',
+        'nik',
+        'nama',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'golongan_darah',
+        'agama',
+        'alamat',
+        'pekerjaan',
+        'kewarganegaraan',
+        'pas_foto',
     ];
 
     // Relasi: KTP milik satu KK
     public function kk()
     {
-        return $this->belongsTo(Kk::class);
-    }
-
-    // Relasi: KTP memiliki satu KK Member
-    public function kkMember()
-    {
-        return $this->hasOne(KkMember::class);
+        return $this->belongsTo(Kk::class); // Relasi Many-to-One
     }
 }

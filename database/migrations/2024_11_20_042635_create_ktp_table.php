@@ -12,13 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ktp', function (Blueprint $table) {
-            $table->id(); // ID KTP
+            $table->id();
+            $table->foreignId('kk_id')->constrained('kk')->onDelete('cascade'); // Relasi ke tabel KK
             $table->string('nik')->unique(); // Nomor KTP
-            $table->string('nama'); // Nama lengkap
-            $table->string('jenis_kelamin'); // Jenis kelamin
-            $table->date('tanggal_lahir'); // Tanggal lahir
-            $table->text('alamat'); // Alamat lengkap
-            $table->string('agama'); // Agama
+            $table->string('nama');
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
+            $table->date('Tempat lahir');
+            $table->date('tanggal_lahir');
+            $table->string('golongan_darah');
+            $table->string('agama');
+            $table->string('alamat');
+            $table->string('pekerjaan');
+            $table->string('kewarganegaraan');
+            $table->string('pas_foto');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\DataPenduduk;
+namespace App\Models\DataGeografis;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
